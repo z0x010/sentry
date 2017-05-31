@@ -32,3 +32,11 @@ class DummyRepositoryProvider(RepositoryProvider):
             'id': end_sha,
             'repository': repo.name,
         }]
+
+    def get_installations(self, user):
+        return [{
+            'app_id': 12345,
+            'installation_id': 54321,
+            'external_id': 987612345,
+            'external_slug': 'dummyorg',
+        }]
