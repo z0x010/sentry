@@ -190,6 +190,8 @@ class OrganizationReleasesEndpoint(OrganizationReleasesBaseEndpoint):
                     'commit': r['currentId'],
                 } for r in result.get('headCommits', [])]
             if refs:
+                # TODO(jess): fix this so that we don't make this a req
+                # if repo is using integration
                 if not request.user.is_authenticated():
                     return Response({
                         'refs': ['You must use an authenticated API token to fetch refs']
