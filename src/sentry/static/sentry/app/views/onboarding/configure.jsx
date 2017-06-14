@@ -1,7 +1,7 @@
 import React from 'react';
 import {onboardingSteps} from './utils';
 
-const Setup = React.createClass({
+const Configure = React.createClass({
   getInitialState() {
     return {
       email: ''
@@ -11,7 +11,7 @@ const Setup = React.createClass({
   steps: Object.keys(onboardingSteps),
   render() {
     return (
-      <div className="onboarding-setup">
+      <div className="onboarding-Configure">
         <h3>Here's docs on setting up your thing:</h3>
         <p>it's specific to your language and platform</p>
         <pre>
@@ -27,4 +27,4 @@ const Setup = React.createClass({
   }
 });
 
-export default Setup;
+export default Configure;

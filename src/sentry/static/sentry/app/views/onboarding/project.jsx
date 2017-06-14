@@ -1,7 +1,8 @@
 import React from 'react';
 import {onboardingSteps} from './utils';
-import EmailField from '../../components/forms/emailField';
-import TextFieldField from '../../components/forms/textField';
+import PlatformPicker from './platformpicker';
+
+import TextField from '../../components/forms/textField';
 
 const Project = React.createClass({
   getInitialState() {
@@ -11,13 +12,15 @@ const Project = React.createClass({
   },
 
   steps: Object.keys(onboardingSteps),
+
   render() {
     return (
       <div className="onboarding-info">
-        <h2>Project Name</h2>
-        <EmailField name="email" />
-        <h2>Language / platform</h2>
-        <TextFieldField name="email" />
+        <h2>Select a language or framework</h2>
+        <PlatformPicker />
+        <h4>Project Name</h4>
+        <TextField name="email" />
+
       </div>
     );
   }

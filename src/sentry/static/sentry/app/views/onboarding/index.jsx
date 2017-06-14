@@ -3,9 +3,9 @@ import DocumentTitle from 'react-document-title';
 
 import ApiMixin from '../../mixins/apiMixin';
 
-import Info from './info';
 import Project from './project';
-import Setup from './setup';
+import Configure from './configure';
+import Next from './next';
 
 import ProgressNodes from './progress';
 import {onboardingSteps} from './utils';
@@ -18,7 +18,7 @@ const OnboardingWizard = React.createClass({
       loading: true,
       error: false,
       options: {},
-      step: onboardingSteps.ready
+      step: onboardingSteps.project
     };
   },
 
@@ -28,7 +28,7 @@ const OnboardingWizard = React.createClass({
 
   renderStep() {
     //eslint-disable-next-line react/jsx-key
-    const component = [<Info />, <Project />, <Setup />][this.state.step];
+    const component = [<Project />, <Configure />, <Next />][this.state.step];
     return (
       <div>
         {component}

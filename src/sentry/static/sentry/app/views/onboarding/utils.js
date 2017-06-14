@@ -1,3 +1,3 @@
-const onboardingSteps = {ready: 0, set: 1, go: 2};
+const onboardingSteps = {project: 0, configure: 1, next: 2};
 
 export {onboardingSteps};
