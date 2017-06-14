@@ -93,3 +93,13 @@ register('symbolserver.options', default={'url': 'http://127.0.0.1:3000'},
 # Analytics
 register('analytics.backend', default='noop', flags=FLAG_NOSTORE)
 register('analytics.options', default={}, flags=FLAG_NOSTORE)
+
+# Plugins
+register('plugins.github.integration_private_key', default='', flags=FLAG_ALLOW_EMPTY)
+register('plugins.github.integration_hook_secret', default='', flags=FLAG_ALLOW_EMPTY)
+register('plugins.github.integration_app_id', default=0, flags=FLAG_ALLOW_EMPTY)
+register(
+    'plugins.github.apps_install_url',
+    default='',
+    flags=FLAG_ALLOW_EMPTY,
+)
