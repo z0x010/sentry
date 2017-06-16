@@ -1,13 +1,16 @@
 import React from 'react';
 import TextField from '../../components/forms/textField';
 import ListLink from '../../components/listLink';
-import {platforms} from '../../../../..//integration-docs/_platforms.json';
+import classnames from 'classnames';
+import {platforms} from '../../../../../integration-docs/_platforms.json';
 const categoryList = ['Popular', 'Frontend', 'Backend', 'Mobile', 'All'];
 
 const flattened = [].concat.apply(
   [],
-  platforms.map(id => {
-    return id.integrations;
+  platforms.map(language => {
+    return language.integrations.map(i => {
+      return {...i, language: language.id};
+    });
   })
 );
 
@@ -20,21 +23,25 @@ const PlatFormPicker = React.createClass({
   },
 
   renderPlatformList() {
+    const filtered = flattened.filter(platform => {
+      return (platform.id + ' ' + platform.platform).includes(this.state.filter);
+    });
     return (
-      <div className="platform-tiles">
-        {flattened.map((platform, idx) => {
+      <ul className="client-platform-list platform-tiles">
+        {filtered.map((platform, idx) => {
           return (
-            <div
-              className="platform-tile"
+            <li
+              className={classnames(platform.language, platform.id)}
               key={idx}
               onClick={() => {
                 this.setState({platform: idx});
               }}>
+              <span className={`platformicon platformicon-${platform.id}`} />
               {platform.name}
-            </div>
+            </li>
           );
         })}
-      </div>
+      </ul>
     );
   },
 
@@ -60,7 +67,7 @@ const PlatFormPicker = React.createClass({
               className="platform-filter"
               name="filter"
               placeholder="Filter"
-              onChange={e => this.setState({filter: e.target.value})}
+              onChange={v => this.setState({filter: v})}
             />
           </li>
         </ul>
