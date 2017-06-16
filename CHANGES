@@ -3,6 +3,7 @@ Version 8.18 (Unreleased)
 
 - Expanded resolution options to allow current and explicit versions.
 - Removed support for global dsyms
+- Added support for new GitHub apps
 
 Schema Changes
 ~~~~~~~~~~~~~~
@@ -21,6 +22,7 @@ Schema Changes
 - Drop index on ``ReleaseEnvironment(project_id)``
 - Drop index on ``ReleaseCommit(project_id)``
 - Drop unique constraint on ``ReleaseEnvironment(project_id, release_id, environment_id)``
+- Added Installation, OrganizationInstallation
 
 API Changes
 ~~~~~~~~~~~
