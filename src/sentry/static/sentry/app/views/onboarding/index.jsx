@@ -18,7 +18,8 @@ const OnboardingWizard = React.createClass({
       loading: true,
       error: false,
       options: {},
-      step: onboardingSteps.project
+      step: onboardingSteps.project,
+      platform: null
     };
   },
 
@@ -27,11 +28,19 @@ const OnboardingWizard = React.createClass({
   },
 
   renderStep() {
-    //eslint-disable-next-line react/jsx-key
-    const component = [<Project />, <Configure />, <Next />][this.state.step];
+    const props = {
+      next: this.next,
+      platform: this.state.platform,
+      setPlatform: p => this.setState({platform: p})
+    };
     return (
       <div>
-        {component}
+        {
+          //eslint-disable-next-line react/jsx-key
+          [<Project {...props} />, <Configure {...props} />, <Next {...props} />][
+            this.state.step
+          ]
+        }
       </div>
     );
   },
@@ -75,9 +84,6 @@ const OnboardingWizard = React.createClass({
           />
           <div>
             <this.renderStep />
-            <div className="btn btn-primary" onClick={this.next}>
-              next step
-            </div>
           </div>
         </div>
       </div>

@@ -15,6 +15,11 @@ const flattened = [].concat.apply(
 );
 
 const PlatFormPicker = React.createClass({
+  propTypes: {
+    setPlatform: React.PropTypes.func,
+    platform: React.PropTypes.string
+  },
+
   getInitialState() {
     return {
       tab: categoryList[0],
@@ -31,10 +36,12 @@ const PlatFormPicker = React.createClass({
         {filtered.map((platform, idx) => {
           return (
             <li
-              className={classnames(platform.language, platform.id)}
+              className={classnames(platform.language, platform.id, 'platform-tile', {
+                selected: this.props.platform === platform.id
+              })}
               key={idx}
               onClick={() => {
-                this.setState({platform: idx});
+                this.props.setPlatform(platform.id);
               }}>
               <span className={`platformicon platformicon-${platform.id}`} />
               {platform.name}
@@ -57,6 +64,7 @@ const PlatFormPicker = React.createClass({
                   this.setState({tab: c});
                   e.preventDefault();
                 }}
+                to={null}
                 isActive={() => c === this.state.tab}>
                 {c}
               </ListLink>
