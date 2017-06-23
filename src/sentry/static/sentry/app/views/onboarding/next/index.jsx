@@ -1,5 +1,5 @@
 import React from 'react';
-import {onboardingSteps} from './utils';
+import {onboardingSteps} from '../utils';
 // import EmailField from '../../components/forms/emailField';
 // import TextFieldField from '../../components/forms/textField';
 

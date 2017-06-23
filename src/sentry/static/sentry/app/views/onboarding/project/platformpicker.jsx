@@ -1,13 +1,13 @@
 import React from 'react';
-import TextField from '../../components/forms/textField';
-import ListLink from '../../components/listLink';
+import TextField from '../../../components/forms/textField';
+import ListLink from '../../../components/listLink';
 import classnames from 'classnames';
-import {platforms} from '../../../../../integration-docs/_platforms.json';
+import {platforms} from '../../../../../../integration-docs/_platforms.json';
 const categoryList = ['Popular', 'Frontend', 'Backend', 'Mobile', 'All'];
 
-const flattened = [].concat.apply(
+const flattened = [].concat(
   [],
-  platforms.map(language => {
+  ...platforms.map(language => {
     return language.integrations.map(i => {
       return {...i, language: language.id};
     });
@@ -36,7 +36,7 @@ const PlatFormPicker = React.createClass({
         {filtered.map((platform, idx) => {
           return (
             <li
-              className={classnames(platform.language, platform.id, 'platform-tile', {
+              className={classnames('platform-tile', platform.language, platform.id, {
                 selected: this.props.platform === platform.id
               })}
               key={idx}
@@ -64,7 +64,7 @@ const PlatFormPicker = React.createClass({
                   this.setState({tab: c});
                   e.preventDefault();
                 }}
-                to={null}
+                to={''}
                 isActive={() => c === this.state.tab}>
                 {c}
               </ListLink>

@@ -1,9 +1,8 @@
 import React from 'react';
-import {onboardingSteps} from './utils';
 import PlatformPicker from './platformpicker';
-import ApiMixin from '../../mixins/apiMixin';
+import ApiMixin from '../../../mixins/apiMixin';
 
-import TextField from '../../components/forms/textField';
+import TextField from '../../../components/forms/textField';
 
 const Project = React.createClass({
   propTypes: {
@@ -19,7 +18,6 @@ const Project = React.createClass({
     };
   },
 
-  steps: Object.keys(onboardingSteps),
   submit() {
     this.api.request('/internal/options/?query=is:required', {
       method: 'GET',
@@ -46,12 +44,18 @@ const Project = React.createClass({
       <div className="onboarding-info">
         <h2>Select a language or framework</h2>
         <PlatformPicker {...this.props} />
-        <h4>Project Name</h4>
         <div style={{display: 'flex'}}>
+          <div className="client-platform-list">
+            <span className={`platformicon platformicon-${this.props.platform}`} />
+            <span
+              className={`platformicon  platformicon-${this.props.platform.split('-')[0]}`}
+            />
+          </div>
+
           <TextField
             key="name"
             name="name"
-            label="Name"
+            label="Project Name"
             placeholder="project name"
             required={true}
             onChange={e => {

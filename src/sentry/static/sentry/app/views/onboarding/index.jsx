@@ -3,9 +3,9 @@ import DocumentTitle from 'react-document-title';
 
 import ApiMixin from '../../mixins/apiMixin';
 
-import Project from './project';
-import Configure from './configure';
-import Next from './next';
+import Project from './project/';
+import Configure from './configure/';
+import Next from './next/';
 
 import ProgressNodes from './progress';
 import {onboardingSteps} from './utils';
@@ -19,7 +19,7 @@ const OnboardingWizard = React.createClass({
       error: false,
       options: {},
       step: onboardingSteps.project,
-      platform: null
+      platform: ''
     };
   },
 
@@ -70,11 +70,10 @@ const OnboardingWizard = React.createClass({
 
   render() {
     return (
-      <div>
+      <div className="onboarding-container">
         <DocumentTitle title={'Sentry'} />
         <h1>ONBOARDING</h1>
-        <div className="onboarding-container">
-
+        <div className="step-container">
           <ProgressNodes step={this.state.step} />
           <div
             className="btn"
