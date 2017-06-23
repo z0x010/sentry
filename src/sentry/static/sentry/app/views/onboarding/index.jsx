@@ -17,45 +17,58 @@ const OnboardingWizard = React.createClass({
     return {
       loading: true,
       error: false,
-      options: {},
       step: onboardingSteps.project,
-      platform: ''
+      platform: '',
+      projectName: '',
+      project: null
     };
   },
 
-  componentWillMount() {
-    this.fetchData();
-  },
-
   renderStep() {
-    const props = {
+    const stepProps = {
       next: this.next,
       platform: this.state.platform,
-      setPlatform: p => this.setState({platform: p})
+      setPlatform: p => this.setState({platform: p}),
+      name: this.state.projectName,
+      setName: n => this.setState({projectName: n}),
+      project: this.state.project,
+      params: this.props.params
     };
     return (
       <div>
         {
-          //eslint-disable-next-line react/jsx-key
-          [<Project {...props} />, <Configure {...props} />, <Next {...props} />][
-            this.state.step
-          ]
+          [
+            //eslint-disable-next-line react/jsx-key
+            <Project {...stepProps} />,
+            //eslint-disable-next-line react/jsx-key
+            <Configure {...stepProps} />,
+            //eslint-disable-next-line react/jsx-key
+            <Next {...stepProps} />
+          ][this.state.step]
         }
       </div>
     );
   },
 
-  fetchData(callback) {
-    this.api.request('/internal/options/?query=is:required', {
-      method: 'GET',
+  createProject(callback) {
+    let org = this.props.params.orgId;
+    this.api.request(`/teams/${org}/${org}/projects/`, {
+      method: 'POST',
+      data: {
+        name: this.state.projectName,
+        platform: this.state.platform
+      },
       success: data => {
+        console.log(data);
         this.setState({
-          options: data,
+          project: data,
           loading: false,
           error: false
         });
+        callback();
       },
-      error: () => {
+      error: err => {
+        console.log(err);
         this.setState({
           loading: false,
           error: true
@@ -65,7 +78,11 @@ const OnboardingWizard = React.createClass({
   },
 
   next() {
-    this.setState({step: this.state.step + 1});
+    if (this.state.step === onboardingSteps.project) {
+      this.createProject(() => {
+        this.setState({step: this.state.step + 1}); //TODO(maxbittker) clean this up
+      });
+    } else this.setState({step: this.state.step + 1});
   },
 
   render() {
