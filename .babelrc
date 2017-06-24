@@ -12,6 +12,7 @@
   ],
   "plugins": [
     "transform-object-rest-spread",
+    "lodash",
     [
       "babel-plugin-transform-builtin-extend",
       {

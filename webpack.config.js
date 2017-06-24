@@ -3,7 +3,8 @@
 var path = require('path'),
   fs = require('fs'),
   webpack = require('webpack'),
-  ExtractTextPlugin = require('extract-text-webpack-plugin');
+  ExtractTextPlugin = require('extract-text-webpack-plugin'),
+  LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 var staticPrefix = 'src/sentry/static/sentry',
   distPath = path.join(__dirname, staticPrefix, 'dist');
@@ -61,7 +62,6 @@ var entry = {
     'reflux',
     'select2',
     'vendor/simple-slider/simple-slider',
-    'underscore',
     'ios-device-list'
   ],
 
@@ -136,6 +136,9 @@ var config = {
     ]
   },
   plugins: [
+    new LodashModuleReplacementPlugin({
+      shorthands: true
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       names: localeEntries.concat(['vendor']) // 'vendor' must be last entry
     }),
@@ -144,9 +147,7 @@ var config = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       'root.jQuery': 'jquery',
-      Raven: 'raven-js',
-      underscore: 'underscore',
-      _: 'underscore'
+      Raven: 'raven-js'
     }),
     new ExtractTextPlugin('[name].css'),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/), // ignore moment.js locale files

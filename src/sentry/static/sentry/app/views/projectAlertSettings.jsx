@@ -1,5 +1,5 @@
 import React from 'react';
-import underscore from 'underscore';
+import underscore from 'lodash';
 
 import ApiMixin from '../mixins/apiMixin';
 import IndicatorStore from '../stores/indicatorStore';
@@ -282,7 +282,7 @@ const ProjectAlertSettings = React.createClass({
         this.setState({
           error: false,
           loading: false,
-          pluginList: data.filter(p => p.type === 'notification'),
+          pluginList: data.filter(p => p.type === 'notification')
         });
       },
       error: () => {
