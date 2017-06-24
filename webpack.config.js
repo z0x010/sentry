@@ -137,7 +137,6 @@ var config = {
   },
   plugins: [
     new LodashModuleReplacementPlugin({
-      shorthands: true,
       collections: true
     }),
     new webpack.optimize.CommonsChunkPlugin({
